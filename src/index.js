@@ -4,6 +4,8 @@ const morgan = require('morgan');
 const handlebars = require("express-handlebars");
 const app = express();
 
+const route = require("./routes")
+
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({
     extended: true
@@ -21,19 +23,9 @@ app.set('views', './src/resources/views')
 
 // app.use(morgan('combined'))
 
-app.get("/", (req, res) => res.render("home"));
-app.get("/news", (req, res) => res.render("news"));
 
-app.get("/search", (req, res) => {
-    console.log(req.query.q === "");
-    res.render("search");
-});
-
-app.post("/search", (req, res) => {
-    // console.log(req.query.q);
-    console.log(req.body);
-    res.send("");
-});
+// route init
+route(app);
 
 
 app.listen(port, () => console.log(`App dang chay o localhost:${port}`));
